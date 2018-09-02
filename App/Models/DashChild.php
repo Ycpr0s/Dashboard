@@ -65,16 +65,16 @@ class DashChild extends \Core\Model implements DashInterface {
         $stmt = $this->db->prepare("SELECT  c.`first name` AS first_name
                                     , c.`last name` AS last_name
                                     , COUNT(o.customer_id) AS counter 
-                                FROM `order` o 
-                                INNER JOIN customer c 
+                                    FROM `order` o 
+                                    INNER JOIN customer c 
                                         ON o.customer_id = c.id 
-                                WHERE o.`purchase date` >= :fromDate 
-                                  AND o.`purchase date` <= :toDate
-                                GROUP BY o.customer_id 
-                                ORDER BY COUNT(*) 
-                                DESC 
-                                LIMIT 10
-                                ");
+                                    WHERE o.`purchase date` >= :fromDate 
+                                    AND o.`purchase date` <= :toDate
+                                    GROUP BY o.customer_id 
+                                    ORDER BY COUNT(*) 
+                                    DESC 
+                                    LIMIT 10
+                                    ");
         $stmt->execute([":fromDate"=>$this->dateFrom, ":toDate"=>$this->dateTo]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);        
     }  
