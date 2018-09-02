@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="top">
+        <div>
+            <h3>Get results by date</h3>
+            <div>
+                <div>
+                    <h4>
+                        Current results: {{ dateFrom }} - {{ dateTo }}
+                    </h4>
+                    <form action="/" method="post" id="searchResults">
+                        From: <input type="text" name="dateFrom" class="datepicker" placeholder="e.g. 2018-06-03" autocomplete="off">
+                        To: <input type="text" name="dateTo" class="datepicker" placeholder="e.g. 2018-08-03" autocomplete="off">
+                        <input type="submit" value="Search">
+                    </form>
+                </div>
+            </div>
+        </div>        
+        <div>
+            <h3>Total</h3>
+            <table>
+                <tr>
+                    <th>Total orders</th>
+                    <th>Total customers</th>
+                    <th>Total revenue</th>
+                </tr>
+                <tr>
+                    <td>{{ ordersTotal }}</td>
+                    <td>{{ customersTotal }}</td>
+                    <td>{{ revenueTotal }}</td>
+                </tr>  
+            </table> 
+        </div>
+    </div>
+    <div class="contentItem">
+    <h3>Top 10 customers by orders</h3>
+    <table>
+        <tr>
+            <th>Customer</th>
+            <th>Orders</th>
+        </tr>
+        {% for customers in customersByOrders %}
+        <tr>
+            <td>{{ customers.first_name }} {{ customers.last_name }}</td>
+            <td>{{ customers.counter }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    <div class="contentItem">
+    <h3>Top 10 selling items</h3>
+    <table>
+        <tr>
+            <th>Item EAN</th>
+            <th>Sales</th>
+        </tr>
+        {% for items in itemsBySales %}
+        <tr>
+            <td>{{ items.EAN }}</td>
+            <td>{{ items.sales }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    <div class="contentItem">
+    <h3>Top 10 orders by revenue</h3>
+    <table>
+        <tr>
+            <th>Order Id</th>
+            <th>Revenue</th>
+        </tr>
+        {% for orders in ordersByRevenue %}
+        <tr>
+            <td>{{ orders.order_id }}</td>
+            <td>{{ orders.revenue }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+    <div class="contentItem">
+    <h3>Top 10 orders by item count</h3>
+    <table>
+        <tr>
+            <th>Order Id</th>
+            <th>Items</th>
+        </tr>
+        {% for orders in ordersByItems %}
+        <tr>
+            <td>{{ orders.order_id }}</td>
+            <td>{{ orders.items }}</td>
+        </tr>
+        {% endfor %}
+    </table>    
+    </div>
+{% endblock %}
